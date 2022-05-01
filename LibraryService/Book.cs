@@ -21,14 +21,22 @@ public class Book : IItem
 
   public void BorrowItem(Person borrower)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    if(IsAvailable()){
+        Borrower = borrower;
+    }
+    else{
+        throw new InvalidOperationException("This book is not available.");
+    }
   }
 
   public void ReturnItem(Person returnee)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    if(returnee == Borrower){
+        Borrower = null;
+    }
+    else{
+        throw new InvalidOperationException("Returnee is not the same as Borrower.");
+    }
   }
 
   public bool IsAvailable()
