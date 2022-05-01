@@ -19,14 +19,28 @@ public class Video : IItem
 
   public void BorrowItem(Person borrower)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    if (IsAvailable()) {
+        foreach (Person person in Borrowers) {
+            if (person == borrower) {
+                    throw new InvalidOperationException("Duplicate borrower.");
+            }
+        }
+        Borrowers.Add(borrower);
+    }
+    else {
+        throw new InvalidOperationException("This book is not available.");
+    }
   }
 
   public void ReturnItem(Person returnee)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (Person borrower in Borrowers) {
+        if (borrower == returnee) {
+                Borrowers.Remove(borrower);
+                return;
+        }
+    }
+    throw new InvalidOperationException();
   }
 
   public override string ToString()
