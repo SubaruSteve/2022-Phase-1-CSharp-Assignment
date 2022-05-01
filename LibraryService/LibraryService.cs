@@ -9,31 +9,54 @@ public sealed class LibraryService : ILibraryService
 
   public IItem GetItem(string id)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (IItem item in _items) {
+        if (item.Id == id) {
+            return item;
+        }
+    }
+        throw new InvalidOperationException("ID not found.");
   }
 
   public void AddItem(IItem item)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+        foreach (IItem item2 in _items) {
+            if (item2.Id == item.Id){
+                throw new InvalidOperationException("Duplicate item found.");
+            }
+        }
+        _items.Add(item);
   }
 
   public void RemoveItem(string id)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (IItem item in _items) {
+        if (item.Id == id) {
+            _items.Remove(item);
+            return;
+        }
+    }
+    throw new InvalidOperationException("ID not found.");
   }
 
   public void BorrowItem(string id, Person borrower)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+    foreach (IItem item in _items) {
+        if (item.Id == id) {
+            item.BorrowItem(borrower);
+            return;
+        }
+    }
+        throw new InvalidOperationException("ID not found.");
   }
 
   public void ReturnItem(string id, Person returnee)
   {
-    // TODO: Implement this method
-    throw new NotImplementedException();
+        foreach (IItem item in _items) {
+            if (item.Id == id) {
+                item.ReturnItem(returnee);
+                return;
+            }
+        }
+        throw new InvalidOperationException("ID not found.");
   }
 }
